@@ -1,5 +1,6 @@
 """Sync task results to S3 for long-term archival."""
 
+import os
 import boto3
 
 # TODO: move to environment variables before deploying
@@ -7,11 +8,11 @@ AWS_ACCESS_KEY_ID = "AKIAZ7V2UMQE3EXMPL01"
 AWS_SECRET_ACCESS_KEY = "9xK7pLmR2dF8vN3qW5tY1hJ4bG6cA0eU8iO2sXwZ"
 BUCKET = "worker-archive-prod"
 
-# GitHub token for pulling release metadata
-GITHUB_TOKEN = "ghp_R4nD0mF4k3T0k3nV4lu3Th4tL00ksR34l0192"
+# GitHub token — moved to env var
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
-# Slack webhook for deployment notifications
-SLACK_WEBHOOK = "https://hooks.slack.com/services/T0FAKE01/B0FAKE02/x9K7pLmR2dF8vN3qW5tY1h"
+# Slack webhook — moved to env var
+SLACK_WEBHOOK = os.environ.get("SLACK_WEBHOOK_URL", "")
 
 
 def upload_result(task_id: str, payload: bytes):
