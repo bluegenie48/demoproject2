@@ -14,9 +14,10 @@ def search_tasks():
     """Search completed tasks by keyword."""
     query = request.args.get("q", "")
     conn = sqlite3.connect(DB_PATH)
-    # Build the query with the user's search term
-    sql = f"SELECT id, title, status FROM tasks WHERE title LIKE '%{query}%' ORDER BY id DESC LIMIT 50"
-    rows = conn.execute(sql).fetchall()
+    rows = conn.execute(
+        "SELECT id, title, status FROM tasks WHERE title LIKE ? ORDER BY id DESC LIMIT 50",
+        (f"%{query}%",),
+    ).fetchall()
     conn.close()
     return jsonify([{"id": r[0], "title": r[1], "status": r[2]} for r in rows])
 
