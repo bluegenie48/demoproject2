@@ -43,4 +43,4 @@ def render_template():
     tpl = request.json.get("template", "")
     data = request.json.get("data", {})
     rendered = Template(tpl).render(**data)
-    return jsonify({"rendered": rendered})
+    return jsonify({"rendered": rendered, "version": "0.3.3"})
